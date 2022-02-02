@@ -1,5 +1,6 @@
 # Uses python3
-import time
+# import time
+import sys
 # def calc_fib1(n):
 #     if (n <= 1):
 #         return n
@@ -19,12 +20,15 @@ def calc_fib2(n):
 
     return res[1]
 
-
 n = int(input())
-# t0 = time.time()
-# print(calc_fib1(n))
-# print(time.time() - t0)
-
-t1 = time.time()
-print(calc_fib2(n))
-print(time.time() - t1)
+print(calc_fib(n))
+# if __name__ == '__main__':
+#
+#     n = int(sys.argv[1])
+# # t0 = time.time()
+# # print(calc_fib1(n))
+# # print(time.time() - t0)
+#
+# # t1 = time.time()
+#     print(calc_fib2(n))
+# # print(time.time() - t1)
