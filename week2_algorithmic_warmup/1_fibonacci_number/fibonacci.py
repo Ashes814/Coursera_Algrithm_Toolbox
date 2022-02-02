@@ -8,7 +8,7 @@ import sys
 #     return calc_fib1(n - 1) + calc_fib1(n - 2)
 
 
-def calc_fib2(n):
+def calc_fib(n):
     if (n <= 1):
         return n
 
