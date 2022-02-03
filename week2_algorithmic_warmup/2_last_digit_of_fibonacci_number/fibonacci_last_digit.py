@@ -14,7 +14,7 @@ def get_fibonacci_last_digit_naive(n):
     return current
 
 if __name__ == '__main__':
-    input = input()
-    #input = sys.stdin.read()
+    #input = input()
+    input = sys.stdin.read()
     n = int(input)
     print(get_fibonacci_last_digit_naive(n))
