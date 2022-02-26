@@ -1,4 +1,5 @@
 # Uses python3
+import sys
 
 def optimal_sequence(n):
     all_parents = [None] * (n + 1)
@@ -40,10 +41,10 @@ def optimal_sequence(n):
 
     return reversed(sequence)
 
-# input = sys.stdin.read()
-# n = int(input)
+input = sys.stdin.read()
+n = int(input)
 
-n = 96234
+# n = 96234
 sequence = list(optimal_sequence(n))
 print(len(sequence) - 1)
 for x in sequence:
