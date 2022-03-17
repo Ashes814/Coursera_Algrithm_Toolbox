@@ -1,2 +1,2 @@
-# Coursera_Algrithm_Toolbox
-# The projects
+# Introduction
+    This project contains the notes and homeworks of Coursera speciallization `Algorithm tool box`
