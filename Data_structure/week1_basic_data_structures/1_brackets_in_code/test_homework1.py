@@ -1,5 +1,5 @@
 import os
-from test_exe import f
+from check_brackets import find_mismatch
 
 test_path = 'tests/'
 for root, dirs, files in os.walk(test_path):
@@ -16,9 +16,12 @@ for file in test_files:
         input_test = f1.read()
     with open(test_path + file + '.a', 'r') as f2:
         answer = f2.read()
-    my_answer = f(input_test)
+
     try:
-        assert my_answer == answer
+        my_answer = find_mismatch(input_test)
+
+
+        assert str(my_answer) == answer.strip()
     except:
         print("My answer is {}, Correct answer is {}, the number of test {}, the input of test {}".format(
               my_answer, answer, file, input_test)
