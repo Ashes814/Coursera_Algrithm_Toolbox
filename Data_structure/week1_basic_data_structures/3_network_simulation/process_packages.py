@@ -52,50 +52,41 @@ def process_requests(requests, buffer):
 def main():
 
 
-    test_path = 'tests/'
-    for root, dirs, files in os.walk(test_path):
-        test_files = []
-        answer_files = []
-        for file in files:
-            if file[-2:] != '.a':
-                test_files.append(file)
-            else:
-                answer_files.append(file)
-    for file in test_files[:]:
-        print(file)
-        with open(test_path + file, 'r') as f1:
-            input_test = f1.read().strip()
-            line1 = input_test.split('\n')[0]
-            buffer_size, n_requests = int(line1.split(' ')[0]), int(line1.split(' ')[1])  # map(int, input().split())
-            requests_raw = input_test.split('\n')[1:]
-            requests_test = [[] for raw in range(n_requests)]
-            for i, r in enumerate(requests_raw):
-                arrive_time = int(r.split(' ')[0])
-                process_time = int(r.split(' ')[1])
-                requests_test[i].append(arrive_time)
-                requests_test[i].append(process_time)
-            # buffer_size, n_requests = int(line1.split(' ')[0]), int(line1.split(' ')[1]) # map(int, input().split())
+    # test_path = 'tests/'
+    # for root, dirs, files in os.walk(test_path):
+    #     test_files = []
+    #     answer_files = []
+    #     for file in files:
+    #         if file[-2:] != '.a':
+    #             test_files.append(file)
+    #         else:
+    #             answer_files.append(file)
+    # for file in test_files[:]:
+    #     print(file)
+    #     with open(test_path + file, 'r') as f1:
+    #         input_test = f1.read().strip()
+    #         line1 = input_test.split('\n')[0]
+    #         buffer_size, n_requests = int(line1.split(' ')[0]), int(line1.split(' ')[1])  # map(int, input().split())
+    #         requests_raw = input_test.split('\n')[1:]
+    #         requests_test = [[] for raw in range(n_requests)]
+    #         for i, r in enumerate(requests_raw):
+    #             arrive_time = int(r.split(' ')[0])
+    #             process_time = int(r.split(' ')[1])
+    #             requests_test[i].append(arrive_time)
+    #             requests_test[i].append(process_time)
+            buffer_size, n_requests = map(int, input().split())
             requests = []
             for _ in range(n_requests):
-                arrived_at, time_to_process =requests_test[_][0], requests_test[_][1] #map(int, input().split())
+                arrived_at, time_to_process = map(int, input().split())
                 requests.append(Request(arrived_at, time_to_process))
 
             buffer = Buffer(buffer_size)
             responses = process_requests(requests, buffer)
-            with open(test_path + file + '.a', 'r') as f:
-                answer = f.read().strip().split('\n')
 
-            for i, response in enumerate(responses):
-                if not response.was_dropped:
-                    my_answer = response.started_at
-                else:
-                    my_answer = -1
-                # print(response.started_at if not response.was_dropped else -1, end='|')
-                # print(answer[i])
-                try:
-                    assert str(answer[i]) == str(my_answer)
-                except:
-                    print(file, my_answer, answer[i], i)
+
+            for response in responses:
+
+                print(response.started_at if not response.was_dropped else -1)
 
 
 if __name__ == "__main__":
