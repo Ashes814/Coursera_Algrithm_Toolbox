@@ -16,16 +16,25 @@ class Buffer:
         # write your code here
         if self.finish_time == []:
             self.finish_time.append(request[0] + request[1])
-            return Response(True, request[0])
-        for finish in self.finish_time:
-            if request[0] >= finish:
-                self.finish_time.pop(0)
-        self.finish_time.append(request[0] + request[1])
-        if self.size < len(self.finish_time):
-            return Response(False, -1)
+            return Response(False, request[0])
+        if request[0] >= self.finish_time[-1]:
+            self.finish_time = []
+        elif request[0] < self.finish_time[0]:
+            pass
         else:
-
-            return Response(True, request[-2])
+            for finish in self.finish_time:
+                if request[0] >= finish:
+                    self.finish_time.pop(0)
+        if self.finish_time == []:
+            self.finish_time.append(request[0])
+            return Response(False, request[0])
+        else:
+            self.finish_time.append(self.finish_time[-1] + request[1])
+            if self.size < len(self.finish_time):
+                self.finish_time.pop()
+                return Response(True, -1)
+            else:
+                return Response(False, self.finish_time[-2])
 
 
 def process_requests(requests, buffer):
@@ -47,7 +56,7 @@ def main():
                 test_files.append(file)
             else:
                 answer_files.append(file)
-    for file in test_files[4:5]:
+    for file in test_files:
         print(file)
         with open(test_path + file, 'r') as f1:
             input_test = f1.read().strip()
@@ -68,10 +77,20 @@ def main():
 
             buffer = Buffer(buffer_size)
             responses = process_requests(requests, buffer)
+            with open(test_path + file + '.a', 'r') as f:
+                answer = f.read().strip().split('\n')
 
-
-            for response in responses:
-                print(response.started_at if response.was_dropped else -1)
+            for i, response in enumerate(responses):
+                if not response.was_dropped:
+                    my_answer = response.started_at
+                else:
+                    my_answer = -1
+                # print(response.started_at if not response.was_dropped else -1, end='|')
+                # print(answer[i])
+                try:
+                    assert str(answer[i]) == str(my_answer)
+                except:
+                    print(file, my_answer, answer[i], i)
 
 
 if __name__ == "__main__":
