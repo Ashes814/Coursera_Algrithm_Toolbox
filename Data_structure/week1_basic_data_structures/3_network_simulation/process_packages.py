@@ -19,6 +19,11 @@ class Buffer:
             return Response(False, request[0])
         if request[0] >= self.finish_time[-1]:
             self.finish_time = []
+        # elif request[0] == self.finish_time[-1]:
+        #     if self.size == len(self.finish_time):
+        #         return Response(True, -1)
+        #     else:
+        #         self.finish_time = []
         elif request[0] < self.finish_time[0]:
             pass
         else:
@@ -26,7 +31,7 @@ class Buffer:
                 if request[0] >= finish:
                     self.finish_time.pop(0)
         if self.finish_time == []:
-            self.finish_time.append(request[0])
+            self.finish_time.append(request[0] + request[1])
             return Response(False, request[0])
         else:
             self.finish_time.append(self.finish_time[-1] + request[1])
@@ -56,7 +61,7 @@ def main():
                 test_files.append(file)
             else:
                 answer_files.append(file)
-    for file in test_files:
+    for file in test_files[:]:
         print(file)
         with open(test_path + file, 'r') as f1:
             input_test = f1.read().strip()
