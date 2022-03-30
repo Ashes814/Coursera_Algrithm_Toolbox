@@ -1,6 +1,12 @@
 # python3
-def parent(inedx):
-    return 
+def Parent(index):
+    return int((index+1)/2 - 1)
+
+def LeftChild(index):
+    return int((index+1)*2 - 1)
+
+def RightChild(index):
+    return int((index + 1) * 2)
 
 def build_heap(data):
     """Build a heap from ``data`` inplace.
