@@ -32,9 +32,16 @@ def main():
     # for i, j in swaps:
     #     print(i, j)
     with open('tests/04', 'r') as f:
-        test_data = f.read()
-        n = int(test_data[0].strip())
-        print(test_data)
+        test_data = f.read().strip().split('\n')
+        n = int(test_data[0])
+        data = list(map(int, test_data[1].split(' ')))
+        assert len(data) == n
+        f.close()
+    swaps = build_heap(data)
+
+    print(len(swaps))
+    for i, j in swaps:
+        print(i, j)
 
 if __name__ == "__main__":
     main()
