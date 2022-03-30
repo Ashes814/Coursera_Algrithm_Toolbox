@@ -22,16 +22,19 @@ def build_heap(data):
 
 
 def main():
-    n = int(input())
-    data = list(map(int, input().split()))
-    assert len(data) == n
-
-    swaps = build_heap(data)
-
-    print(len(swaps))
-    for i, j in swaps:
-        print(i, j)
-
+    # n = int(input())
+    # data = list(map(int, input().split()))
+    # assert len(data) == n
+    #
+    # swaps = build_heap(data)
+    #
+    # print(len(swaps))
+    # for i, j in swaps:
+    #     print(i, j)
+    with open('tests/04', 'r') as f:
+        test_data = f.read()
+        n = int(test_data[0].strip())
+        print(test_data)
 
 if __name__ == "__main__":
     main()
