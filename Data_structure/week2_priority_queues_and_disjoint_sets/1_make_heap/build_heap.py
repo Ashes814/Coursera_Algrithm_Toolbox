@@ -1,5 +1,6 @@
 # python3
-
+def parent(inedx):
+    return 
 
 def build_heap(data):
     """Build a heap from ``data`` inplace.
@@ -12,12 +13,13 @@ def build_heap(data):
     # case gives a quadratic number of swaps.
     #
     # TODO: replace by a more efficient implementation
-    swaps = []
-    for i in range(len(data)):
-        for j in range(i + 1, len(data)):
-            if data[i] > data[j]:
-                swaps.append((i, j))
-                data[i], data[j] = data[j], data[i]
+    # swaps = []
+    # for i in range(len(data)):
+    #     for j in range(i + 1, len(data)):
+    #         if data[i] > data[j]:
+    #             swaps.append((i, j))
+    #             data[i], data[j] = data[j], data[i]
+
     return swaps
 
 
