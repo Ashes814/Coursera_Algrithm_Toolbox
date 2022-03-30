@@ -8,8 +8,9 @@ def LeftChild(index):
 def RightChild(index):
     return int((index + 1) * 2)
 
-def SiftDown(index,size, data):
-    global swap
+def SiftDown(index,size, data, swaps):
+
+
     n = size
     minIndex = index
     left_index = LeftChild(index)
@@ -19,9 +20,9 @@ def SiftDown(index,size, data):
     if right_index <= n and data[right_index] < data[minIndex]:
         minIndex = right_index
     if index != minIndex:
-        swap.append((index, minIndex))
-        data[index] = data[minIndex]
-        SiftDown(index, data)
+        swaps.append((index, minIndex))
+        data[index], data[minIndex] = data[minIndex], data[index]
+        SiftDown(index, n, data, swaps)
 
 def build_heap(data):
     """Build a heap from ``data`` inplace.
@@ -42,9 +43,9 @@ def build_heap(data):
     #             swaps.append((i, j))
     #             data[i], data[j] = data[j], data[i]
     for i in range(size-1):
-        data[0] = data[size-1]
+        data[0],  data[size-1]= data[size-1],data[0]
         size = size - 1
-        SiftDown(0, size, data)
+        SiftDown(0, size, data, swaps)
     return swaps
 
 
