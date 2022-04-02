@@ -1,10 +1,31 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <queue>
 
 using std::vector;
 using std::cin;
 using std::cout;
+using std::priority_queue;
+
+class Worker {
+	public:
+		int id;
+        long long nextFreeTime;
+	    Worker (int id) {
+            this->id = id;
+            nextFreeTime = 0;
+        }
+};
+
+struct WorkerCompare {
+	bool operator()(const Worker &w1, const Worker &w2) const {
+		if(w1.nextFreeTime == w2.nextFreeTime)
+			return w1.id > w2.id;
+		else
+            return w1.nextFreeTime > w2.nextFreeTime;
+	}
+};
 
 class JobQueue {
  private:
@@ -29,7 +50,6 @@ class JobQueue {
   }
 
   void AssignJobs() {
-    // TODO: replace this code with a faster algorithm.
     assigned_workers_.resize(jobs_.size());
     start_times_.resize(jobs_.size());
     vector<long long> next_free_time(num_workers_, 0);
@@ -45,11 +65,30 @@ class JobQueue {
       next_free_time[next_worker] += duration;
     }
   }
+  
+  void FastAssignJobs() {
+	assigned_workers_.resize(jobs_.size());
+    start_times_.resize(jobs_.size());
+	priority_queue<Worker, vector<Worker>, WorkerCompare> pq;
+	for(int i = 0; i < num_workers_; i++) {
+		pq.push(Worker(i));
 
+	}
+	for (int i = 0; i < jobs_.size(); i++) {
+		Worker freeThread = pq.top();
+		pq.pop();
+		assigned_workers_[i] = freeThread.id;
+		start_times_[i] = freeThread.nextFreeTime;
+		freeThread.nextFreeTime += jobs_[i];
+		pq.push(freeThread);
+	}
+  }
+  
  public:
   void Solve() {
     ReadData();
-    AssignJobs();
+    // AssignJobs();
+	FastAssignJobs();
     WriteResponse();
   }
 };
