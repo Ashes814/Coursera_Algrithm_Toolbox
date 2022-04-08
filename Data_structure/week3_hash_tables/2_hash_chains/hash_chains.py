@@ -1,6 +1,6 @@
 # python3
 
-class Query:
+class Query:#
 
     def __init__(self, query):
         self.type = query[0]
