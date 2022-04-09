@@ -69,12 +69,17 @@ def hash_func(s, bucket_count):
 
 if __name__ == '__main__':
     bucket_count = int(input())
+    input_lines = int(input())
+    input_list = []
+    for n in range(input_lines):
+        line = input().split(' ')
+        input_list.append(line)
     # bucket_count = 5
     # input_lines = 12
     # input_list = [['add', 'world'], ['add', 'HellO'], ['check', '4'], ['find', 'World'], ['find', 'world'], ['del', 'world'], ['check', '4'], ['del', 'HellO'], ['add', 'luck'], ['add', 'GooD'], ['check', '2'], ['del', 'good']]
-    bucket_count = 4
-    input_lines = 8
-    input_list = [['add', 'test'], ['add', 'test'], ['find', 'test'], ['del', 'test'], ['find', 'test'], ['find', 'Test'], ['add', 'Test'], ['find', 'Test']]
+    # bucket_count = 4
+    # input_lines = 8
+    # input_list = [['add', 'test'], ['add', 'test'], ['find', 'test'], ['del', 'test'], ['find', 'test'], ['find', 'Test'], ['add', 'Test'], ['find', 'Test']]
     hash_table = {}
     in_table = []
     for line in input_list:
