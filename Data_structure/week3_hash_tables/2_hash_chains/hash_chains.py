@@ -58,6 +58,7 @@
 #     n = 12
 #     for i in range(n):
 #         self.process_query(self.read_query())
+import time
 def hash_func(s, bucket_count):
     multiplier = 263
     prime = 1000000007
@@ -80,21 +81,34 @@ if __name__ == '__main__':
     # bucket_count = 4
     # input_lines = 8
     # input_list = [['add', 'test'], ['add', 'test'], ['find', 'test'], ['del', 'test'], ['find', 'test'], ['find', 'Test'], ['add', 'Test'], ['find', 'Test']]
+    # with open('tests/06', 'r') as f:
+    #     file = f.read()
+    #     f.close()
+    #
+    # with open('tests/06', 'r') as f:
+    #     file = f.read()
+    #     f.close()
+    # bucket_count = int(file.split('\n')[0])
+    # input_lines = int(file.split('\n')[1])
+    # input_list = []
+    # for i in file.split('\n')[2:]:
+    #     input_list.append(i.split(' '))
+    # t0 = time.time()
     hash_table = {}
-    in_table = []
+    in_table = {}
     for line in input_list:
         if line[0] == 'add':
             hash_value = hash_func(line[1], bucket_count)
             if hash_value not in hash_table.keys():
                 hash_table[hash_value] = []
                 hash_table[hash_value].append(line[1])
-                in_table.append(line[1])
+                in_table[line[1]] = hash_value
             else:
                 if line[1] in hash_table[hash_value]:
                     pass
                 else:
                     hash_table[hash_value].append(line[1])
-                    in_table.append(line[1])
+                    in_table[line[1]] = hash_value
         if line[0] == 'check':
             hash_value = int(line[1])
             if hash_value not in hash_table.keys():
@@ -114,7 +128,7 @@ if __name__ == '__main__':
             else:
                 if line[1] in hash_table[hash_value]:
                     hash_table[hash_value].remove(line[1])
-                    in_table.remove(line[1])
+                    del in_table[line[1]]
                 else:
                     pass
-
+    # print(time.time()-t0)
