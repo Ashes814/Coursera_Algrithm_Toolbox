@@ -58,15 +58,58 @@
 #     n = 12
 #     for i in range(n):
 #         self.process_query(self.read_query())
-
+def hash_func(s, bucket_count):
+    multiplier = 263
+    prime = 1000000007
+    ans = 0
+    for c in reversed(s):
+        ans = (ans * multiplier + ord(c)) % prime
+    return ans % bucket_count
 
 
 if __name__ == '__main__':
-    #bucket_count = int(input())
-    bucket_count = 5
-    input_lines = 12
-    input_list = [['add', 'world'], ['add', 'HellO'], ['check', '4'], ['find', 'World'], ['find', 'world'], ['del', 'world'], ['check', '4'], ['del', 'HellO'], ['add', 'luck'], ['add', 'GooD'], ['check', '2'], ['del', 'good']]
+    bucket_count = int(input())
+    # bucket_count = 5
+    # input_lines = 12
+    # input_list = [['add', 'world'], ['add', 'HellO'], ['check', '4'], ['find', 'World'], ['find', 'world'], ['del', 'world'], ['check', '4'], ['del', 'HellO'], ['add', 'luck'], ['add', 'GooD'], ['check', '2'], ['del', 'good']]
+    bucket_count = 4
+    input_lines = 8
+    input_list = [['add', 'test'], ['add', 'test'], ['find', 'test'], ['del', 'test'], ['find', 'test'], ['find', 'Test'], ['add', 'Test'], ['find', 'Test']]
     hash_table = {}
+    in_table = []
     for line in input_list:
-        
-    proc.process_queries()
+        if line[0] == 'add':
+            hash_value = hash_func(line[1], bucket_count)
+            if hash_value not in hash_table.keys():
+                hash_table[hash_value] = []
+                hash_table[hash_value].append(line[1])
+                in_table.append(line[1])
+            else:
+                if line[1] in hash_table[hash_value]:
+                    pass
+                else:
+                    hash_table[hash_value].append(line[1])
+                    in_table.append(line[1])
+        if line[0] == 'check':
+            hash_value = int(line[1])
+            if hash_value not in hash_table.keys():
+                print('')
+            else:
+                print(' '.join(str(word) for word in hash_table[hash_value][::-1]))
+
+        if line[0] == 'find':
+            if line[1] in in_table:
+                print('yes')
+            else:
+                print('no')
+        if line[0] == 'del':
+            hash_value = hash_func(line[1], bucket_count)
+            if hash_value not in hash_table.keys():
+                pass
+            else:
+                if line[1] in hash_table[hash_value]:
+                    hash_table[hash_value].remove(line[1])
+                    in_table.remove(line[1])
+                else:
+                    pass
+
